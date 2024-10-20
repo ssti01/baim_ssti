@@ -1,1 +1,1 @@
-# baim_ssti
+# Server Side Template Injection
