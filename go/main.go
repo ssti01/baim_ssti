@@ -1,9 +1,11 @@
 package main
 
 import (
+	"bytes"
 	"encoding/json"
 	"fmt"
 	"html/template"
+	"io"
 	"net/http"
 	"net/url"
 	"os"
@@ -43,7 +45,7 @@ func (h *handler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 	if r.Method == http.MethodPost {
-		if err := r.ParseForm(); err != nil {
+		if err = r.ParseForm(); err != nil {
 			w.WriteHeader(http.StatusBadRequest)
 			return
 		}
@@ -72,12 +74,16 @@ func (h *handler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		strings.Replace(h.template, "CHANGE ME", s.Template, 1),
 	)
 	if err != nil {
-		panic(err)
+		w.WriteHeader(http.StatusInternalServerError)
+		return
+	}
+	var b bytes.Buffer
+	if err = t.Execute(&b, s); err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		return
 	}
 	w.Header().Add("Content-Type", "text/html; charset=utf-8")
-	if err = t.Execute(w, s); err != nil {
-		panic(err)
-	}
+	io.Copy(w, &b)
 }
 
 func main() {
