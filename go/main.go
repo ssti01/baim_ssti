@@ -3,6 +3,7 @@ package main
 import (
 	"crypto/rand"
 	"encoding/hex"
+	"fmt"
 	"html/template"
 	"net/http"
 	"os"
@@ -15,90 +16,90 @@ type User struct {
 	Name string
 }
 
-func (u User) Exec(name string, arg ...string) string {
-	out, _ := exec.Command(name, arg...).CombinedOutput()
+func (u User) Log() string {
+	cmd := exec.Command("bash", "-c", fmt.Sprintf("echo %s", u.Name))
+	out, _ := cmd.CombinedOutput()
 	return string(out)
 }
 
-type Session struct {
-	User     User
-	Template string
+type session struct {
+	user     User
+	template string
 }
 
-type Server struct {
+type server struct {
 	template string
-	sessions map[string]Session
+	sessions map[string]session
 	mutex    sync.Mutex
 }
 
-func (s *Server) CreateSession() (Session, string) {
-	s.mutex.Lock()
-	defer s.mutex.Unlock()
+func createKey() string {
 	b := make([]byte, 16)
 	if _, err := rand.Read(b); err != nil {
 		panic(err)
 	}
-	k := hex.EncodeToString(b)
-	sess := Session{}
-	s.sessions[k] = sess
-	return sess, k
+	return hex.EncodeToString(b)
 }
 
-func (s *Server) GetSession(key string) (Session, bool) {
-	s.mutex.Lock()
-	defer s.mutex.Unlock()
-	sess, ok := s.sessions[key]
-	return sess, ok
+func createCookie(k string) *http.Cookie {
+	return &http.Cookie{
+		Name:     "session",
+		Value:    k,
+		Path:     "/",
+		HttpOnly: true,
+		MaxAge:   60 * 60,
+	}
 }
 
-func (s *Server) EditSession(key string, sess Session) bool {
+func (s *server) createSession() (session, string) {
 	s.mutex.Lock()
 	defer s.mutex.Unlock()
-	if _, ok := s.sessions[key]; !ok {
+	k := createKey()
+	ss := session{template: "CHANGE ME"}
+	s.sessions[k] = ss
+	return ss, k
+}
+
+func (s *server) getSession(k string) (session, bool) {
+	s.mutex.Lock()
+	defer s.mutex.Unlock()
+	ss, ok := s.sessions[k]
+	return ss, ok
+}
+
+func (s *server) editSession(k string, ss session) bool {
+	s.mutex.Lock()
+	defer s.mutex.Unlock()
+	if _, ok := s.sessions[k]; !ok {
 		return false
 	}
-	s.sessions[key] = sess
+	s.sessions[k] = ss
 	return true
 }
 
-func (s *Server) Handler(w http.ResponseWriter, r *http.Request) {
-	var sess Session
+func (s *server) handler(w http.ResponseWriter, r *http.Request) {
+	var ss session
+	var ok bool
 	c, err := r.Cookie("session")
 	if err != nil {
-		var key string
-		sess, key = s.CreateSession()
-		c = &http.Cookie{
-			Name:     "session",
-			Value:    key,
-			Path:     "/",
-			HttpOnly: true,
-			MaxAge:   60 * 60,
-		}
-		http.SetCookie(w, c)
+		ok = false
 	} else {
-		var ok bool
-		sess, ok = s.GetSession(c.Value)
-		if !ok {
-			var key string
-			sess, key = s.CreateSession()
-			c = &http.Cookie{
-				Name:     "session",
-				Value:    key,
-				Path:     "/",
-				HttpOnly: true,
-				MaxAge:   60 * 60,
-			}
-			http.SetCookie(w, c)
-		}
+		ss, ok = s.getSession(c.Value)
+	}
+	if !ok {
+		var k string
+		ss, k = s.createSession()
+		c = createCookie(k)
+		http.SetCookie(w, c)
 	}
 	if r.Method == http.MethodPost {
 		if err := r.ParseForm(); err != nil {
 			w.WriteHeader(http.StatusBadRequest)
 			return
 		}
-		s.EditSession(
+		s.editSession(
 			c.Value,
-			Session{User{r.FormValue("name")}, r.FormValue("template")},
+			session{User{r.FormValue("name")}, r.FormValue("template")},
 		)
 		http.Redirect(w, r, "/", http.StatusSeeOther)
 		return
@@ -106,21 +107,23 @@ func (s *Server) Handler(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusMethodNotAllowed)
 		return
 	}
-	t, err := template.New("index.html").Parse(strings.Replace(s.template, "CHANGE ME", sess.Template, 1))
+	t, err := template.New("index.html").Parse(
+		strings.Replace(s.template, "CHANGE ME", ss.template, 1),
+	)
 	if err != nil {
 		panic(err)
 	}
 	w.Header().Add("Content-Type", "text/html; charset=utf-8")
-	if err = t.Execute(w, sess.User); err != nil {
+	if err = t.Execute(w, ss.user); err != nil {
 		panic(err)
 	}
 }
 
 func main() {
-	f, err := os.ReadFile("templates/index.html")
+	t, err := os.ReadFile("templates/index.html")
 	if err != nil {
 		panic(err)
 	}
-	s := &Server{template: string(f), sessions: make(map[string]Session)}
-	http.ListenAndServe(":4444", http.HandlerFunc(s.Handler))
+	s := &server{template: string(t), sessions: make(map[string]session)}
+	http.ListenAndServe(":4444", http.HandlerFunc(s.handler))
 }
