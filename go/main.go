@@ -3,7 +3,6 @@ package main
 import (
 	"bytes"
 	"encoding/json"
-	"fmt"
 	"html/template"
 	"io"
 	"net/http"
@@ -18,8 +17,12 @@ type Session struct {
 	Template string `json:"template"`
 }
 
+/*
+This method is meant to be used later for logging users using our app.
+There is nothing wrong with it being here, right?
+*/
 func (s Session) Log() string {
-	cmd := exec.Command("bash", "-c", fmt.Sprintf("echo %s", s.Username))
+	cmd := exec.Command("bash", "-c", "echo "+s.Username)
 	out, _ := cmd.CombinedOutput()
 	return string(out)
 }

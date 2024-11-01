@@ -6,6 +6,7 @@
    - `id`
    - `whoami`
    - `cat flag.txt`
+2. Jeśli po wprowadzeniu jakichś danych strona zwraca błąd, który nie znika nawet po odświeżeniu, należy wyczyścić ciasteczka.
 
 ## Go
 
@@ -22,7 +23,7 @@ type User struct {
 }
 
 func (u User) Greet() string {
-	return fmt.Sprintf("Hi, %s!", u.Name)
+	return "Hi, " + u.Name + "!"
 }
 ```
 
@@ -46,13 +47,14 @@ Na standardowe wyjście powinno zostać wypisane:
 <p>Hi, Bogdan!</p>
 ```
 
-Jak widać, biblioteka `html/template` mając strukturę `User` potrafi skorzystać zarówno z pola `Id`, jak również z metody `Greet`, która po wykonaniu zwraca `string`.
+Jak widać, biblioteka `html/template` mając strukturę `User` potrafi skorzystać zarówno z pola `Id` typu `int`, jak również z metody `Greet`, która po wykonaniu zwraca `string`.
 
 ### Ćwiczenie
 
-1. Wejdź na stronę podaną podczas zajęć przeznaczoną dla języka Go i zapoznaj się z jej działaniem.
+1. Wejdź na stronę podaną podczas zajęć przeznaczoną dla języka Go. Zobacz co się stanie, jeśli w polu `Username` wpiszesz `Bogdan`, w `Template` szablon `Hi, {{.Username}}!`, a następnie zatwierdzisz formularz.
 2. Otwórz plik `main.go` w folderze `go`, aby móc minimalnie zrozumieć działanie serwera oraz znaleźć podatność SSTI.
 3. Znajdź w kodzie funkcję `Execute`, nazwę zmiennej podanej jako drugi argument, typ tej zmiennej oraz definicję struktury.
-4. Przyjrzyj się, co oprócz nazwy użytkownika jest jeszcze w niej zdefiniowane. Spróbuj zrozumieć działanie jedynej metody. Czy jest jakaś wartość, z której ona korzysta, a która jest pod twoją kontrolą?
-5. Jaki znak specjalny pozwala na wykonanie kilku poleceń w jednej linii w języku Bash?
-6. Ustawiąjąc nazwę użytkownika na wartość wykorzystującą podstawową podatność command injection oraz wywołując podatną metodę w kontrolowanym szablonie, odczytaj wartość flagi.
+4. Przyjrzyj się, co oprócz nazwy użytkownika jest jeszcze w niej zdefiniowane (nie zwracaj uwagi na pole `Template`). Spróbuj zrozumieć działanie jedynej metody. Czy jest jakaś wartość, z której ona korzysta, a która jest pod twoją kontrolą?
+5. Komenda `bash -c` wykonuje skrypt podany jako argument, tak więc przykładowo `bash -c "echo test"` jest w większości przypadków równoważne z `echo test`
+6. Język bash pozwala na wykonanie kilku poleceń w jednej linii za pomocą znaku `;`, na przykład `id; whoami; cat /etc/os-release`
+7. Ustawiąjąc nazwę użytkownika na wartość wykorzystującą klasyczną podatność command injection oraz wywołując podatną metodę w kontrolowanym szablonie, odczytaj wartość flagi.
