@@ -2,11 +2,16 @@ from flask import Flask, request, render_template_string
 
 app = Flask(__name__)
 
+with open("index.html") as f:
+    template = f.read()
+
 
 @app.route("/")
 def home():
     if request.args.get("c"):
-        return render_template_string(request.args.get("c"))
+        return render_template_string(
+            template.replace("CHANGE ME", request.args.get("c"))
+        )
     else:
         return "Hello, send someting inside the param 'c'!"
 

@@ -10,15 +10,33 @@
 
 ## Python
 
-### Wstęp
-
 W Pythonie jednym z najpopularniejszych silników szablonów jest Jinja2. Jest on domyślnie stosowany w bibliotece Flask służącej do tworzenia aplikacji internetowych. Chcąc wykorzystać podatność SSTI należy znaleźć sposób na wyjście ze środowiska Jinja2, w którym większość funkcji Pythona jest niedostępna. Istnieją jednak obiekty które zawsze są dostępne i od których należy zacząć eksploatację. Są to między innymi `[]`, `""` oraz `dict`.
+
+### Przykład
+
+Załóżmy, że w szablonie `index.html` znajduje się taki element:
+
+```html
+<p>{{a}} + 2 * {{b}} = {{a+2*b}}</p>
+```
+
+Jeśli w funkcji obsługującej zapytania użyjemy:
+
+```python
+render_template("index.html", a=5, b=7)
+```
+
+To ten element będzie wyglądał tak:
+
+```html
+<p>5 + 2 * 7 = 19</p>
+```
 
 ## Go
 
 W języku programowania Go istnieją dwie natywne biblioteki do szablonów: `text/template` oraz `html/template`. Skupimy się na tej drugiej, ponieważ interesują nas aplikacje internetowe. Kluczowym elementem `html/template` jest metoda `Execute` struktury `Template`, która jako drugi argument przyjmuje dane, które będą przesłane do szablonu.
 
-### Wstęp
+### Przykład
 
 Załóżmy, że mamy tak zdefiniowaną strukturę `User`:
 
