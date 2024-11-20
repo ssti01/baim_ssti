@@ -1,0 +1,81 @@
+body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: flex-start;
+
+    background: url('/Monster_in_desert.png') no-repeat center center fixed;
+
+    background-size: cover;
+
+    font-family: Arial, sans-serif;
+    color: white;
+
+    padding-top: 30px;
+
+}
+
+
+div {
+    text-align: center;
+
+    background-color: rgba(0, 0, 0, 0.5);
+
+    padding: 10px;
+    border-radius: 10px;
+
+    max-width: 600px;
+
+    width: 100%;
+
+}
+
+
+h1,
+h2 {
+    margin: 10px 0;
+}
+
+
+form {
+    margin-top: 20px;
+}
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+
+}
+
+
+input {
+    width: 100%;
+    padding: 10px;
+
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+
+}
+
+
+button {
+    width: 100%;
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #45a049;
+}
