@@ -30,13 +30,11 @@ type handler struct {
 
 func (h *handler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	q := r.URL.Query()
-	s := q.Get("template")
-	if s == "" {
-		s = "CHANGE ME"
+	s := h.template
+	if q.Has("template") {
+		s = strings.Replace(h.template, "CHANGE ME", q.Get("template"), 1)
 	}
-	t, err := template.New("index.html").Parse(
-		strings.Replace(h.template, "CHANGE ME", s, 1),
-	)
+	t, err := template.New("index.html").Parse(s)
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		return

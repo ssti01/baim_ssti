@@ -9,7 +9,9 @@ app.use(express.static("public"));
 app.use(express.urlencoded({ extended: false }));
 app.get("/", (req, res) => {
   res.send(
-    handlebars.compile(html.replace("CHANGE ME", req.query.template ?? ""))()
+    req.query.template
+      ? handlebars.compile(html.replace("CHANGE ME", req.query.template))()
+      : html
   );
 });
 app.listen(4444);
