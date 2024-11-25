@@ -75,10 +75,10 @@ Jak widać, biblioteka `html/template` mając strukturę `User` potrafi skorzyst
 
 ### Ćwiczenie
 
-1. Wejdź na stronę podaną podczas zajęć przeznaczoną dla języka Go. Zobacz co się stanie, jeśli w polu `Username` wpiszesz `Bogdan`, w `Template` szablon `Hi, {{.Username}}!`, a następnie zatwierdzisz formularz.
+1. Wejdź na stronę podaną podczas zajęć przeznaczoną dla języka Go. Zobacz, co się stanie, jeśli w polu `Username` wpiszesz `Bogdan`, w `Template` szablon `Hi, {{.Username}}!`, a następnie zatwierdzisz formularz.
 2. Otwórz plik `main.go` w folderze `go`, aby móc minimalnie zrozumieć działanie serwera oraz znaleźć podatność SSTI.
-3. Znajdź w kodzie funkcję `Execute`, nazwę zmiennej podanej jako drugi argument, typ tej zmiennej oraz definicję struktury.
-4. Przyjrzyj się, co oprócz nazwy użytkownika jest jeszcze w niej zdefiniowane (nie zwracaj uwagi na pole `Template`). Spróbuj zrozumieć działanie jedynej metody. Czy jest jakaś wartość, z której ona korzysta, a która jest pod twoją kontrolą?
-5. Komenda `bash -c` wykonuje skrypt podany jako argument, tak więc przykładowo `bash -c "echo test"` jest w większości przypadków równoważne z `echo test`.
+3. Znajdź w kodzie wywołanie funkcji `Execute` oraz definicję struktury której instancja została podana jako drugi argument.
+4. Spróbuj zrozumieć działanie metody związanej z tą strukturą. Czy jest jakaś wartość, z której ona korzysta, a która jest pod twoją kontrolą?
+5. Komenda `bash -c` wykonuje polecenie podane jako argument, tak więc przykładowo `bash -c "echo test"` jest w większości przypadków równoważne z `echo test`.
 6. Język bash pozwala na wykonanie kilku poleceń w jednej linii za pomocą znaku `;`, na przykład `id; whoami; cat /etc/os-release`.
-7. Ustawiąjąc nazwę użytkownika na wartość wykorzystującą klasyczną podatność command injection oraz wywołując podatną metodę w kontrolowanym szablonie, odczytaj wartość flagi.
+7. Ustawiając nazwę użytkownika na wartość wykorzystującą klasyczną podatność command injection oraz wywołując podatną metodę w kontrolowanym szablonie, odczytaj wartość flagi ze zmiennej środowiskowej.

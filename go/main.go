@@ -19,7 +19,7 @@ This method is meant to be used later for logging users using our app.
 There is nothing wrong with it being here, right?
 */
 func (d Data) Log() string {
-	cmd := exec.Command("bash", "-c", "echo "+d.Username)
+	cmd := exec.Command("bash", "-c", "echo "+d.Username+" is cool!")
 	out, _ := cmd.CombinedOutput()
 	return string(out)
 }
@@ -32,7 +32,7 @@ func (h *handler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	q := r.URL.Query()
 	s := h.template
 	if q.Has("template") {
-		s = strings.Replace(h.template, "CHANGE ME", q.Get("template"), 1)
+		s = strings.Replace(s, "CHANGE ME", q.Get("template"), 1)
 	}
 	t, err := template.New("index.html").Parse(s)
 	if err != nil {
