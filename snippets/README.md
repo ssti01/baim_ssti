@@ -78,7 +78,7 @@ app.listen(3000);
 <%= allocate(10 ** 9) %>
 ```
 
-## Jinja2
+## Jinja
 
 ### Template
 
