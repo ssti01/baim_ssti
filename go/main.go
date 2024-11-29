@@ -26,9 +26,14 @@ func (d Data) Log() string {
 
 type handler struct {
 	template string
+	secret   string
 }
 
 func (h *handler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+	if c, err := r.Cookie("secret"); err != nil || c.Value != h.secret {
+		w.WriteHeader(http.StatusUnauthorized)
+		return
+	}
 	q := r.URL.Query()
 	s := h.template
 	if q.Has("template") {
@@ -53,7 +58,8 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-	if err = http.ListenAndServe(":5555", &handler{string(t)}); err != nil {
+	h := &handler{string(t), os.Getenv("SECRET")}
+	if err = http.ListenAndServe(":5555", h); err != nil {
 		panic(err)
 	}
 }

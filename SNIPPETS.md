@@ -65,7 +65,7 @@ const allocate = (size) => {
 };
 
 app.get("/", (req, res) => {
-  res.send(ejs.render(req.query.template), { execute, allocate });
+  res.send(ejs.render(req.query.template ?? "", { execute, allocate }));
 });
 
 app.listen(3000);
@@ -132,7 +132,7 @@ app = Flask(__name__)
 
 @app.route("/ssti", methods=["GET"])
 def ssti():
-    template = request.args.get("template")
+    template = request.args.get("template", "")
     return render_template_string(template)
 
 if __name__ == "__main__":
