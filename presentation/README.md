@@ -2,27 +2,48 @@
 
 ## Konspekt
 
-1. Czym jest szablon?
-2. Czym jest silnik szablonów?
+1. Czym są szablony?
+   - Nie koniecznie muszą dotyczyć HTML.
+   - Posiadają rozszerzoną składnię względem docelowego formatu.
+   - Stają się coraz mniej popularne ze względu na renderowanie po stronie klienta.
+   - ...
+2. Czym są silniki szablonów?
+   - Obsługują przetwarzanie szablonów z danymi.
+   - Definiują własną składnię szablonu.
+   - Nie są z natury podatne na żadne ataki.
+   - ...
 3. Czym jest podatność SSTI?
+   - Występuje, gdy dane wejściowe użytkownika są niebezpieczne dołączone do szablonu.
+   - Pozwala atakującym na wprowadzenie logiki która będzie wykonywać się po stronie serwera.
+   - ...
 4. Jak powstaje podatność SSTI?
+   - Programista pozwala użytkownikowi kontrolować treść szablonu, który będzie przetwarzany.
+   - Silniki szablonów pozwalają na zdefiniowanie w szablonie procedur prowadzących m. in. do wykonania kodu, co niekoniecznie jest złe same w sobie.
+   - ...
 5. Jak można wykorzystać podatność SSTI?
+   - ...
 6. Jak wykryć podatność SSTI?
+   - ...
 7. Jak prawidłowo używać silnika szablonów?
+   - ...
 8. Jak poprawnie zabezpieczać dane wejściowe?
+   - ...
 9. Jakie można wyciągnąć wnioski?
+   - ...
 
 ## Pytania
 
 1. Który z poniższych sposobów działania aplikacji przedstawia podatność SSTI?
-   A. Niezabezpieczone dane wejściowe są łączone z zapytaniem do bazy danych
-   B. Niezabezpieczone dane wejściowe są przetwarzane przez silnik szablonów jako część szablonu
-   C. Pliki załadowane przez użytkownika są zapisywane na serwerze bez ograniczeń co do ich typu lub zawartości
+   - Niezabezpieczone dane wejściowe są łączone z zapytaniem do bazy danych
+   - Niezabezpieczone dane wejściowe są przetwarzane przez silnik szablonów jako część szablonu
+   - Pliki załadowane przez użytkownika są zapisywane na serwerze bez ograniczeń co do ich typu lub zawartości
 2. Która z poniższych podatności nie jest bezpośrednio ani pośrednio związana z SSTI?
-   A. RCE
-   B. LFI
-   C. XSS
+   - RCE
+   - LFI
+   - XSS
 3. Które z poniższych zachowań wskazuje, że aplikacja może być podatna na SSTI?
-   A. Pojawianie się wiadomości o błędach przy podaniu różnorodnych znaków specjalnych jako dane wejściowe
-   B. Pojawianie się alertu przy podaniu `<script>alert(1)</script>` jako dane wejściowe
-   C. Wysyłanie w odpowiedzi HTTP nagłówka `X-Powered-By: Express`
+   - Pojawianie się wiadomości o błędach przy podaniu różnorodnych znaków specjalnych jako dane wejściowe
+   - Pojawianie się alertu przy podaniu `<script>alert(1)</script>` jako dane wejściowe
+   - Wysyłanie w odpowiedzi HTTP nagłówka `X-Powered-By: Express`
+4. ...
+5. ...
