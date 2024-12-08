@@ -82,3 +82,42 @@ Jak widać, biblioteka `html/template` mając strukturę `User` potrafi skorzyst
 5. Komenda `bash -c` wykonuje polecenie podane jako argument, tak więc przykładowo `bash -c "echo test"` jest w większości przypadków równoważne z `echo test`.
 6. Język bash pozwala na wykonanie kilku poleceń w jednej linii za pomocą znaku `;`, na przykład `id; whoami; cat /etc/os-release`.
 7. Ustawiając nazwę użytkownika na wartość wykorzystującą klasyczną podatność command injection oraz wywołując podatną metodę w kontrolowanym szablonie, odczytaj wartość flagi ze zmiennej środowiskowej.
+
+##NodeJS
+
+Niech nasz kod wygląda w następujący sposób:
+
+```NodeJS
+app.get("/", (req, res) => {
+  res.send(
+    handlebars.compile(html.replace("NAME", req.query.template ?? ""))()
+  );
+});
+```
+
+A kod w handlebats, wygląda tak:
+
+```hbs
+...
+	<div>
+    		<p>hi, NAME</p>
+		<form>
+		  <div>
+        	    <input name="template" />
+      		  </div>
+		  <button type="submit">Submit</button>
+    		</form>
+  	</div>
+...
+```
+
+Wtedy używając poniższy url:
+
+```
+http://localhost:4444/?template=Łukasz
+```
+
+W wyniku otrzymujemy:
+
+``
+Hi, Łukasz
