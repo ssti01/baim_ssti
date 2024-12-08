@@ -83,7 +83,7 @@ Jak widać, biblioteka `html/template` mając strukturę `User` potrafi skorzyst
 6. Język bash pozwala na wykonanie kilku poleceń w jednej linii za pomocą znaku `;`, na przykład `id; whoami; cat /etc/os-release`.
 7. Ustawiając nazwę użytkownika na wartość wykorzystującą klasyczną podatność command injection oraz wywołując podatną metodę w kontrolowanym szablonie, odczytaj wartość flagi ze zmiennej środowiskowej.
 
-##NodeJS
+## NodeJS
 
 Niech nasz kod wygląda w następujący sposób:
 
