@@ -100,7 +100,7 @@ A kod w handlebats, wygląda tak:
 ```hbs
 ...
 	<div>
-    		<p>hi, NAME</p>
+    		<p>Hi, NAME</p>
 		<form>
 		  <div>
         	    <input name="template" />
@@ -122,3 +122,9 @@ W wyniku otrzymujemy:
 ```
 Hi, Łukasz
 ```
+
+### Ćwiczenie
+
+1. Wejdź na stronę serwera NodeJS podaną na zajęciach i sprobuj wpisać dowolny tekst w pole formy i zatwierdź klikając na pzycisk `Submit` zobacz wynik tego działania.
+2. Wejdź na następną stornę ... i zapoznaj się z informacją dotyczącą ataku SSTI w szablonie handlebars  
+3. 
