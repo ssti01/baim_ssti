@@ -31,6 +31,10 @@ To ten element będzie wyglądał tak:
 ```html
 <p>5 + 2 * 7 = 19</p>
 ```
+### Ćwiczenie
+1. Zapoznaj się z kodem aplikacji. Znajdź funkcję render_template_string. To w niej najczęściej występuje podatność na SSTI.
+2. Za pomocą formularza wyświetl SECRET_KEY znajdujący się w zmiennej przechowywującej konfigurację aplikacji config. 
+3. Wykonaj komendę ,,ls'' na serwerze wpisując odpowiednią komendę w pole ,,Skomentuj''. Następnie przerób ją, aby działała także w polu nazwy użytkownika. Podpowiedź: https://www.onsecurity.io/blog/server-side-template-injection-with-jinja2/
 
 ## Go
 
