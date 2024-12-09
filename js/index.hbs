@@ -78,16 +78,17 @@
     </style>
     <title>Node.js SSTI</title>
   </head>
-  <body>
-    <div>
-      <h1>SSTI</h1>
-      <p>CHANGE ME</p>
-      <form>
-        <div>
-          <input name="template" />
-        </div>
-        <button type="submit">SUBMIT</button>
-      </form>
-    </div>
-  </body>
+<body>
+  <div>
+    <h1>SSTI</h1>
+    <p>{{ description }}</p>
+    <form>
+      <div>
+        <input name="template" placeholder="Enter description" />
+      </div>
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+</body>
+
 </html>
