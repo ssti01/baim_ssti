@@ -5,9 +5,6 @@ import handlebars from "handlebars";
 const hbs = fs.readFileSync("index.hbs", "utf-8");
 const app = express();
 
-
-process.env.FLAG = 'test';
-
 app.use(express.static("public"));
 app.use(express.urlencoded({ extended: false }));
 
@@ -15,8 +12,7 @@ app.get("/", (req, res) => {
 
   const UserInput = req.query.template || "Domyślny opis";
   const html = hbs.replace("{{ description }}", UserInput);
-
-
+  
   const template = handlebars.compile(html);
   const result = template({});
 
