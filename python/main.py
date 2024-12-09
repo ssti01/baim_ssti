@@ -10,7 +10,7 @@ def filter(user_input: str) -> str:
 
 def index():
 	if request.method == "POST":
-		username = fliter(request.form.get("username"))
+		username = filter(request.form.get("username"))
 		comment = request.form.get("comment")
 		if not username or not comment:
             		return "Brak nazwy uzytkownika lub komentarza"
