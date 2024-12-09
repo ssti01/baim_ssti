@@ -93,8 +93,10 @@ Niech nasz kod wygląda w następujący sposób:
 
 ```NodeJS
 app.get("/", (req, res) => {
-  res.send(
-    handlebars.compile(html.replace("NAME", req.query.template ?? ""))()
+  res.send(req.query.template
+    ? handlebars.compile(html)({
+      name: req.query.template || "Default description",
+    }) : html
   );
 });
 ```
@@ -104,7 +106,7 @@ A kod w handlebats, wygląda tak:
 ```hbs
 ...
 	<div>
-    		<p>Hi, NAME</p>
+    		<p>Hi, {{name}}</p>
 		<form>
 		  <div>
         	    <input name="template" />
