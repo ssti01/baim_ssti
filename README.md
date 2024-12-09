@@ -126,6 +126,6 @@ Hi, Łukasz
 ### Ćwiczenie
 
 1. Wejdź na stronę serwera NodeJS podaną na zajęciach i sprobuj wpisać dowolny tekst w pole formy i zatwierdź klikając na pzycisk `Submit` zobacz wynik tego działania.
-2. Wejdź na następną stornę ... i zapoznaj się z informacją dotyczącą ataku SSTI w szablonie handlebars  
+2. Wejdź na następną stornę [HackTricks](https://book.hacktricks.xyz/pentesting-web/ssti-server-side-template-injection) i zapoznaj się z informacją dotyczącą ataku SSTI w szablonie Handlebars  
 3. Odpowiednią zmodyfikuj kod używany w tym ataku tak, aby dostać się do flagi. Podpowiedź: trzeba użyć zminną środowiskową.
 4. Jako odpowiedź przyślij otrzymaną flagę.
