@@ -78,8 +78,14 @@
    - Silniki szablonowe przetwarzają dynamiczne dane wejściowe, co może prowadzić do nieautoryzowanego wykonania kodu
    - Szablony są zaprojektowane wyłącznie do generowania statycznych treści
    - Dane wejściowe w szablonach nie są automatycznie zabezpieczone przez serwer
-5. Jaki mechanizm najlepiej wykrywa potencjalne podatności SSTI w aplikacji?
-   - Testy penetracyjne z użyciem automatycznych narzędzi
-   - Logowanie i monitorowanie aktywności użytkownika
-   - Stosowanie statycznej analizy kodu źródłowego
+5. Jakie są przykłady eksploitów wykorzystujących SSTI?
+   - Wykonanie polecenia systemowego przez wstrzyknięcie kodu w szablon
+   - Modyfikacja stylów CSS aplikacji
+   - Przesyłanie dużych plików do bazy danych
+
+
+
+
+
+
    
