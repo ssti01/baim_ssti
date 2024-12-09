@@ -45,5 +45,12 @@
    - Pojawianie się wiadomości o błędach przy podaniu różnorodnych znaków specjalnych jako dane wejściowe
    - Pojawianie się alertu przy podaniu `<script>alert(1)</script>` jako dane wejściowe
    - Wysyłanie w odpowiedzi HTTP nagłówka `X-Powered-By: Express`
-4. ...
-5. ...
+4. Który z poniższych sposobów zabezpiecza aplikację przed podatnością SSTI?
+   - Walidacja danych wejściowych z użyciem białej listy dopuszczalnych znaków
+   - Wyłączenie obsługi zmiennych dynamicznych w szablonach
+   - Szyfrowanie danych przesyłanych między serwerem a użytkownikiem
+5. Jaki mechanizm najlepiej wykrywa potencjalne podatności SSTI w aplikacji?
+   - Testy penetracyjne z użyciem automatycznych narzędzi
+   - Logowanie i monitorowanie aktywności użytkownika
+   - Stosowanie statycznej analizy kodu źródłowego
+   
