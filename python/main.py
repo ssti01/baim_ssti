@@ -2,9 +2,7 @@ from flask import Flask, request, render_template_string, render_template
 
 app = Flask(__name__)
 
-with open("index.html") as f:
-    template = f.read()
-
+app.config['SECRET_KEY'] = os.urandom(24)
 
 @app.route("/", methods=["GET", "POST"])
 def index():
