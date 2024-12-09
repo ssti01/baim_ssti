@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template_string
+from flask import Flask, request, render_template_string, render_template
 
 app = Flask(__name__)
 
@@ -6,15 +6,17 @@ with open("index.html") as f:
     template = f.read()
 
 
-@app.route("/")
-def home():
-    if request.args.get("c"):
-        return render_template_string(
-            template.replace("CHANGE ME", request.args.get("c"))
-        )
-    else:
-        return "Hello, send someting inside the param 'c'!"
-
+@app.route("/", methods=["GET", "POST"])
+def index():
+    if request.method == "POST":
+		username = request.form.get("username")
+		comment = request.form.get("comment")
+		if not username or not comment:
+            		return "Brak nazwy uzytkownika lub komentarza"
+		output = render_template_string(f"{username}: {comment}")
+		return render_template("index.html", output=output)
+	
+	return render_template("index.html")
 
 if __name__ == "__main__":
-    app.run("0.0.0.0", 3333)
+    app.run(debug=True)
