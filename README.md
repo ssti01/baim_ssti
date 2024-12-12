@@ -33,8 +33,9 @@ To ten element będzie wyglądał tak:
 ```
 ### Ćwiczenie
 1. Zapoznaj się z kodem aplikacji. Znajdź funkcję render_template_string. To w niej najczęściej występuje podatność na SSTI.
-2. Za pomocą formularza wyświetl SECRET_KEY znajdujący się w zmiennej przechowywującej konfigurację aplikacji config. 
-3. Wykonaj komendę ,,ls'' na serwerze wpisując odpowiednią komendę w pole ,,Skomentuj''. Następnie przerób ją, aby działała także w polu nazwy użytkownika. Podpowiedź: https://www.onsecurity.io/blog/server-side-template-injection-with-jinja2/
+2. Sprawdź które pola formularza są podatne na ten atak.
+3. Za pomocą formularza wyświetl SECRET_KEY znajdujący się w zmiennej przechowywującej konfigurację aplikacji config. 
+4. Wykonaj komendę ,,ls'' na serwerze. Podpowiedź: https://www.youtube.com/watch?v=VBifwXFQJMQ (od minuty 2:40)
 
 ## Go
 
