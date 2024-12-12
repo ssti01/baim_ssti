@@ -4,8 +4,12 @@ import os
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.urandom(24)
 
-def filter(user_input: str) -> str:
-    return user_input.strip().replace('_', '').replace('.', '')
+def filter(user_input):
+	A = ["{","}","%","(",")","[","]","<",">"]
+	for i in A:
+		user_input = user_input.replace(i,"")
+	return user_input
+	
 @app.route("/", methods=["GET", "POST"])
 
 def index():
