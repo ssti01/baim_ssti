@@ -9,10 +9,9 @@ app.use(express.static("public"));
 app.use(express.urlencoded({ extended: false }));
 
 app.get("/", (req, res) => {
+  const userInput = req.query.template || "Domyślny opis";
+  const html = hbs.replace("{{ description }}", userInput);
 
-  const UserInput = req.query.template || "Domyślny opis";
-  const html = hbs.replace("{{ description }}", UserInput);
-  
   const template = handlebars.compile(html);
   const result = template({});
 

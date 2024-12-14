@@ -2,6 +2,9 @@ package main
 
 import (
 	"bytes"
+	"crypto/rand"
+	"encoding/hex"
+	"fmt"
 	"html/template"
 	"io"
 	"net/http"
@@ -26,14 +29,9 @@ func (d Data) Log() string {
 
 type handler struct {
 	template string
-	secret   string
 }
 
 func (h *handler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	if c, err := r.Cookie("secret"); err != nil || c.Value != h.secret {
-		w.WriteHeader(http.StatusUnauthorized)
-		return
-	}
 	q := r.URL.Query()
 	s := h.template
 	if q.Has("template") {
@@ -58,8 +56,14 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-	h := &handler{string(t), os.Getenv("SECRET")}
-	if err = http.ListenAndServe(":5555", h); err != nil {
+	f := make([]byte, 16)
+	if _, err := rand.Read(f); err != nil {
+		panic(err)
+	}
+	if err = os.Setenv("FLAG", fmt.Sprintf("SSTI{%s}\n", hex.EncodeToString(f))); err != nil {
+		panic(err)
+	}
+	if err = http.ListenAndServe(":5555", &handler{string(t)}); err != nil {
 		panic(err)
 	}
 }

