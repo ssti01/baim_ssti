@@ -71,7 +71,7 @@
    - Pojawianie się alertu przy podaniu `<script>alert(1)</script>` jako dane wejściowe
    - Wysyłanie w odpowiedzi HTTP nagłówka `X-Powered-By: Express`
 4. Dlaczego SSTI często występuje w aplikacjach korzystających z szablonów?
-   - Silniki szablonowe przetwarzają dynamiczne dane wejściowe, co może prowadzić do nieautoryzowanego wykonania kodu
+   - Silniki szablonów przetwarzają dynamiczne dane wejściowe, co może prowadzić do nieautoryzowanego wykonania kodu
    - Szablony są zaprojektowane wyłącznie do generowania statycznych treści
    - Dane wejściowe w szablonach nie są automatycznie zabezpieczone przez serwer
 5. Który z przykładów nie daje zabiezpieczenia przed atakiem SSTI
