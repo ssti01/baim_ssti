@@ -74,7 +74,7 @@
    - Silniki szablonowe przetwarzają dynamiczne dane wejściowe, co może prowadzić do nieautoryzowanego wykonania kodu
    - Szablony są zaprojektowane wyłącznie do generowania statycznych treści
    - Dane wejściowe w szablonach nie są automatycznie zabezpieczone przez serwer
-5. Który z przykładów nie daje zabiezpieczenie przed atakiem SSTI
+5. Który z przykładów nie daje zabiezpieczenia przed atakiem SSTI
    - Sanityzacja danych wejściowych
    - Ograniczenie na wprowadzenie danych przez użytkownika
    - Zbieranie logów danych wejściowych
