@@ -74,10 +74,10 @@
    - Silniki szablonowe przetwarzają dynamiczne dane wejściowe, co może prowadzić do nieautoryzowanego wykonania kodu
    - Szablony są zaprojektowane wyłącznie do generowania statycznych treści
    - Dane wejściowe w szablonach nie są automatycznie zabezpieczone przez serwer
-5. Jakie są przykłady eksploitów wykorzystujących SSTI?
-   - Wykonanie polecenia systemowego przez wstrzyknięcie kodu w szablon
-   - Modyfikacja stylów CSS aplikacji
-   - Przesyłanie dużych plików do bazy danych
+5.  Który z przykładów nie daje zabiezpieczenie przed atakiem SSTI
+   - Sanityzacja danych wejściowych
+   - Ograniczenie na wprowadzenie danych przez użytkownika
+   - Zbieranie logów danych wejściowych
 
 ## Fragmenty kodu
 
