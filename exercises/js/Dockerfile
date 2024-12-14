@@ -4,8 +4,8 @@ WORKDIR /app
 
 COPY . .
 
-RUN npm ci --only=production
+RUN npm ci
 
 EXPOSE 4444
 
-CMD ["npm", "start"]
+CMD ["node", "index.js"]

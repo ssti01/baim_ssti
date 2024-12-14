@@ -1,9 +1,13 @@
-from flask import Flask, render_template_string, request, render_template
 import os
+import secrets
+from flask import Flask, render_template_string, request, render_template
+
+
+PORT = 3333
 
 
 app = Flask(__name__)
-app.config["SECRET_KEY"] = os.urandom(24)
+app.config["SECRET_KEY"] = secrets.token_bytes(8).hex()
 
 
 def filter(user_input):
@@ -19,11 +23,17 @@ def index():
         username = filter(request.form.get("username"))
         comment = request.form.get("comment")
         if not username or not comment:
-            return "Brak nazwy uzytkownika lub komentarza"
+            return "Brak nazwy użytkownika lub komentarza"
         output = render_template_string(f"{username}: {comment}")
         return render_template("index.html", output=output)
     return render_template("index.html")
 
 
+def main():
+    os.environ["FLAG"] = f"SSTI{{{secrets.token_bytes(16).hex()}}}"
+    print(f"server is running on port {PORT}")
+    app.run(host="0.0.0.0", port=PORT)
+
+
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=3333, debug=True)
+    main()

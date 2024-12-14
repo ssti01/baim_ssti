@@ -1,23 +1,27 @@
+import crypto from "crypto";
 import fs from "fs";
 import express from "express";
 import handlebars from "handlebars";
 
-const hbs = fs.readFileSync("index.hbs", "utf-8");
+const PORT = 4444;
+
+const html = fs.readFileSync("index.html", "utf-8");
 const app = express();
 
 app.use(express.static("public"));
-app.use(express.urlencoded({ extended: false }));
 
 app.get("/", (req, res) => {
-  const userInput = req.query.template || "Domyślny opis";
-  const html = hbs.replace("{{ description }}", userInput);
+  const userInput = req.query.template ?? "Domyślny opis";
+  const templateStr = html.replace("CHANGE ME", userInput);
 
-  const template = handlebars.compile(html);
+  const template = handlebars.compile(templateStr);
   const result = template({});
 
   res.send(result);
 });
 
-app.listen(4444, () => {
-  console.log("Serwer działa na porcie 4444");
+process.env.FLAG = `SSTI{${crypto.randomBytes(16).toString("hex")}}`;
+
+app.listen(PORT, () => {
+  console.log(`server is running on port ${PORT}`);
 });

@@ -13,6 +13,8 @@ import (
 	"strings"
 )
 
+const port = 5555
+
 type Data struct {
 	Username string
 }
@@ -63,7 +65,8 @@ func main() {
 	if err = os.Setenv("FLAG", fmt.Sprintf("SSTI{%s}\n", hex.EncodeToString(f))); err != nil {
 		panic(err)
 	}
-	if err = http.ListenAndServe(":5555", &handler{string(t)}); err != nil {
+	fmt.Printf("server is running on port %d\n", port)
+	if err = http.ListenAndServe(fmt.Sprintf(":%d", port), &handler{string(t)}); err != nil {
 		panic(err)
 	}
 }
