@@ -6,6 +6,13 @@
 
 W Pythonie jednym z najpopularniejszych silników szablonów jest Jinja. Jest on domyślnie stosowany w bibliotece Flask służącej do tworzenia aplikacji internetowych. Chcąc wykorzystać podatność SSTI należy znaleźć sposób na wyjście ze środowiska Jinja, w którym większość funkcji Pythona jest niedostępna. Istnieją jednak obiekty które zawsze są dostępne i od których należy zacząć eksploatację. Są to między innymi `""`, `request` oraz `dict`.
 
+### Docker
+
+```bash
+docker build -t python-ssti .
+docker run -p 3333:3333 python-ssti
+```
+
 ### Ćwiczenie
 
 1. Zapoznaj się z kodem aplikacji. Znajdź funkcję `render_template_string`. To w niej najczęściej występuje podatność na SSTI.
@@ -14,6 +21,13 @@ W Pythonie jednym z najpopularniejszych silników szablonów jest Jinja. Jest on
 4. Wykonaj komendę `echo $FLAG` na serwerze. Podpowiedź: https://www.youtube.com/watch?v=VBifwXFQJMQ (od minuty 2:40).
 
 ## JavaScript
+
+### Docker
+
+```bash
+docker build -t js-ssti .
+docker run -p 4444:4444 js-ssti
+```
 
 ### Ćwiczenie
 
@@ -62,12 +76,19 @@ Na standardowe wyjście zostanie wypisane:
 
 Jak widać, biblioteka `html/template` mając strukturę `User` potrafi skorzystać zarówno z pola `Id` typu `int`, jak również z metody `Greet`, która po wykonaniu zwraca `string`.
 
+### Docker
+
+```bash
+docker build -t go-ssti .
+docker run -p 5555:5555 go-ssti
+```
+
 ### Ćwiczenie
 
-1. Wejdź na stronę podaną podczas zajęć przeznaczoną dla języka Go. Zobacz, co się stanie, jeśli w polu `Username` wpiszesz `Bogdan`, w `Template` szablon `Hi, {{.Username}}!`, a następnie zatwierdzisz formularz.
+1. Zobacz, co się stanie, jeśli w polu `Username` wpiszesz `Bogdan`, w `Template` szablon `Hi, {{.Username}}!`, a następnie zatwierdzisz formularz.
 2. Otwórz plik `main.go` w podfolderze `go`, aby móc minimalnie zrozumieć działanie serwera oraz znaleźć podatność SSTI.
 3. Znajdź w kodzie wywołanie funkcji `Execute` oraz definicję struktury której instancja została podana jako drugi argument.
 4. Spróbuj zrozumieć działanie metody związanej z tą strukturą. Czy jest jakaś wartość, z której ona korzysta, a która jest pod twoją kontrolą?
-5. Komenda `bash -c` wykonuje polecenie podane jako argument, tak więc przykładowo `bash -c "echo test"` jest w większości przypadków równoważne z `echo test`.
+5. Komenda `sh -c` wykonuje polecenie podane jako argument, tak więc przykładowo `sh -c "echo test"` jest w większości przypadków równoważne z `echo test`.
 6. Język bash pozwala na wykonanie kilku poleceń w jednej linii za pomocą znaku `;`, na przykład `id; whoami; cat /etc/os-release`.
 7. Ustawiając nazwę użytkownika na wartość wykorzystującą klasyczną podatność command injection oraz wywołując podatną metodę w kontrolowanym szablonie, odczytaj wartość zmiennej środowiskowej `FLAG`.

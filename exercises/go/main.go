@@ -14,7 +14,7 @@ import (
 )
 
 type Data struct {
-	Username string `json:"username"`
+	Username string
 }
 
 /*
@@ -22,7 +22,7 @@ This method is meant to be used later for logging users using our app.
 There is nothing wrong with it being here, right?
 */
 func (d Data) Log() string {
-	cmd := exec.Command("bash", "-c", "echo "+d.Username+" is cool!")
+	cmd := exec.Command("sh", "-c", "echo "+d.Username+" is cool!")
 	out, _ := cmd.CombinedOutput()
 	return string(out)
 }
