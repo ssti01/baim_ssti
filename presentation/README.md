@@ -73,10 +73,10 @@
    - Na serwerze.
    - W bazie danych.
    - W sieci podczas transmisji danych.
-5. Co na pewno nie wyeliminuje występowania podatności SSTI?
-   - Sanityzacja danych wejściowych.
-   - Ograniczenie na wprowadzenie danych wejściowych przez użytkownika.
-   - Zbieranie logów danych wejściowych.
+5. Które z poniższych danych wejściowych użyłbyś do wykrycia podatności SSTI w aplikacji używającej silnika szablonów Jinja?
+   - `<%= 7 * 7 %>`
+   - `@(7 * 7)`
+   - `{{ 7 * 7 }}`
 
 ## Fragmenty kodu
 
