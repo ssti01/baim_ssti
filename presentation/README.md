@@ -69,10 +69,10 @@
    - Tak
    - Nie
 4. W jakim środowisku występuje podatność SSTI?
-   - W przeglądarce użytkownika
-   - Na serwerze
-   - W bazie danych
-   - W sieci podczas transmisji danych
+   - W przeglądarce użytkownika.
+   - Na serwerze.
+   - W bazie danych.
+   - W sieci podczas transmisji danych.
 5. Co na pewno nie wyeliminuje występowania podatności SSTI?
    - Sanityzacja danych wejściowych.
    - Ograniczenie na wprowadzenie danych wejściowych przez użytkownika.
