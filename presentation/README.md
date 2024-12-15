@@ -76,7 +76,7 @@
 5. Które z poniższych danych wejściowych użyłbyś do wykrycia podatności SSTI w aplikacji używającej silnika szablonów Jinja?
    - `<%= 7 * 7 %>`
    - `@(7 * 7)`
-   - `{{ 7 * `7` }}`
+   - `{{ 7 * '7' }}`
 
 ## Fragmenty kodu
 
