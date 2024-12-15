@@ -1,39 +1,41 @@
 # Ćwiczenia
 
-## Zasady
+## Docker
+
+Przed przystąpieniem do wykonania każdego ćwiczenia należy w odpowiednim podfolderze zbudować obraz na podstawie `Dockerfile` oraz uruchomić kontener. Obraz najlepiej oznaczyć dowolną etykietą za pomocą flagi `-t`. Przy uruchamianiu trzeba ustawić przekierowanie odpowiedniego portu wewnątrz kontenera na `localhost` za pomocą flagi `-p`.
+
+| Ćwiczenie | Port |
+| --------- | ---- |
+| Python    | 3333 |
+| Node.js   | 4444 |
+| Go        | 5555 |
+
+Przydatna jest również flaga `-d`, która powoduje uruchomienie kontenera w tle i wypisanie na standardowe wyjście jego identyfikatora.
+
+```bash
+docker build -t <TAG> .
+docker run -d -p <PORT>:<PORT> <TAG>
+```
+
+Po wykonaniu ćwiczenia kontener można zatrzymać i usunąć podając odpowiedni identyfikator.
+
+```bash
+docker stop <ID>
+docker rm <ID>
+```
 
 ## Python
 
-W Pythonie jednym z najpopularniejszych silników szablonów jest Jinja. Jest on domyślnie stosowany w bibliotece Flask służącej do tworzenia aplikacji internetowych. Chcąc wykorzystać podatność SSTI należy znaleźć sposób na wyjście ze środowiska Jinja, w którym większość funkcji Pythona jest niedostępna. Istnieją jednak obiekty które zawsze są dostępne i od których należy zacząć eksploatację. Są to między innymi `""`, `request` oraz `dict`.
-
-### Docker
-
-```bash
-docker build -t python-ssti .
-docker run -p 3333:3333 python-ssti
-```
-
-### Ćwiczenie
-
-1. Zapoznaj się z kodem aplikacji. Znajdź funkcję `render_template_string`. To w niej najczęściej występuje podatność na SSTI.
-2. Sprawdź, które pola formularza są podatne na ten atak.
+1. Zapoznaj się z kodem aplikacji. Znajdź funkcję `render_template_string`. To w niej najczęściej występuje podatność SSTI.
+2. Sprawdź, które pola formularza są podatne.
 3. Za pomocą formularza wyświetl `SECRET_KEY` znajdujący się w zmiennej `config` przechowywującej konfigurację aplikacji.
 4. Wykonaj komendę `echo $FLAG` na serwerze. Podpowiedź: https://www.youtube.com/watch?v=VBifwXFQJMQ (od minuty 2:40).
 
-## JavaScript
+## Node.js
 
-### Docker
-
-```bash
-docker build -t js-ssti .
-docker run -p 4444:4444 js-ssti
-```
-
-### Ćwiczenie
-
-1. Wejdź na stronę serwera JavaScript podaną na zajęciach i spróbuj wpisać dowolny tekst w pole formy i zatwierdź klikając na przycisk `Submit`, zobacz wynik tego działania.
-2. Wejdź na stronę [HackTricks](https://book.hacktricks.xyz/pentesting-web/ssti-server-side-template-injection) i zapoznaj się z informacją dotyczącą ataku SSTI w szablonie Handlebars.
-3. Odpowiednią zmodyfikuj kod używany w tym ataku tak, aby dostać się do flagi. Podpowiedź: trzeba odczytać zmienną środowiskową `FLAG`.
+1. Wpisz dowolny tekst w pole formularza i zatwierdź klikając na przycisk `Submit`. Zobacz wynik tego działania.
+2. Wejdź na stronę [HackTricks](https://book.hacktricks.xyz/pentesting-web/ssti-server-side-template-injection) i zapoznaj się z informacją dotyczącą wykorzystania podatności SSTI w przypadku silnika szablonów Handlebars.
+3. Odpowiednio zmodyfikuj znaleziony złośliwy szablon tak, aby powodował on odczyt zmiennej środowiskowej `FLAG`.
 
 ## Go
 
@@ -75,13 +77,6 @@ Na standardowe wyjście zostanie wypisane:
 ```
 
 Jak widać, biblioteka `html/template` mając strukturę `User` potrafi skorzystać zarówno z pola `Id` typu `int`, jak również z metody `Greet`, która po wykonaniu zwraca `string`.
-
-### Docker
-
-```bash
-docker build -t go-ssti .
-docker run -p 5555:5555 go-ssti
-```
 
 ### Ćwiczenie
 

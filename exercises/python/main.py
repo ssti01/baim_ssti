@@ -7,7 +7,6 @@ PORT = 3333
 
 
 app = Flask(__name__)
-app.config["SECRET_KEY"] = secrets.token_bytes(8).hex()
 
 
 def filter(user_input):
@@ -30,6 +29,7 @@ def index():
 
 
 def main():
+    app.config["SECRET_KEY"] = secrets.token_bytes(8).hex()
     os.environ["FLAG"] = f"SSTI{{{secrets.token_bytes(16).hex()}}}"
     print(f"server is running on port {PORT}")
     app.run(host="0.0.0.0", port=PORT)
