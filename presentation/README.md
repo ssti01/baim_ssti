@@ -68,10 +68,11 @@
 3. Czy podatność SSTI można potencjalnie wykorzystać do przeprowadzenia ataku XSS?
    - Tak
    - Nie
-4. Dlaczego SSTI występuje w aplikacjach korzystających z szablonów?
-   - Silniki szablonów przetwarzają dynamiczne dane wejściowe, co może prowadzić do nieautoryzowanego wykonania kodu.
-   - Szablony są zaprojektowane wyłącznie do generowania statycznych treści.
-   - Dane wejściowe w szablonach nie są automatycznie zabezpieczone przez serwer.
+4. W jakim środowisku występuje podatność SSTI?
+   - W przeglądarce użytkownika
+   - Na serwerze
+   - W bazie danych
+   - W sieci podczas transmisji danych
 5. Co na pewno nie wyeliminuje występowania podatności SSTI?
    - Sanityzacja danych wejściowych.
    - Ograniczenie na wprowadzenie danych wejściowych przez użytkownika.
