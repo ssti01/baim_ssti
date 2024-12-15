@@ -76,7 +76,7 @@
    - Dane wejściowe w szablonach nie są automatycznie zabezpieczone przez serwer
 5. Który z przykładów nie daje zabiezpieczenia przed atakiem SSTI
    - Sanityzacja danych wejściowych
-   - Ograniczenie na wprowadzenie danych przez użytkownika
+   - Ograniczenie na wprowadzenie danych wejściowych przez użytkownika
    - Zbieranie logów danych wejściowych
 
 ## Fragmenty kodu
