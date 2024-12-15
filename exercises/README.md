@@ -6,7 +6,7 @@ Przed przystąpieniem do wykonania każdego ćwiczenia należy w odpowiednim pod
 
 | Ćwiczenie | Port | TAG	  |
 | --------- | ---- | ------------ |
-| Python    | 3333 | python--ssti |
+| Python    | 3333 | python-ssti |
 | Node.js   | 4444 | js-ssti	  |
 | Go        | 5555 | go-stti	  |
 
