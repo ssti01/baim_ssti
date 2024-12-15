@@ -4,11 +4,11 @@
 
 Przed przystąpieniem do wykonania każdego ćwiczenia należy w odpowiednim podfolderze zbudować obraz na podstawie `Dockerfile` oraz uruchomić kontener. Obraz najlepiej oznaczyć dowolną etykietą za pomocą flagi `-t`. Przy uruchamianiu trzeba ustawić przekierowanie odpowiedniego portu wewnątrz kontenera na `localhost` za pomocą flagi `-p`.
 
-| Ćwiczenie | Port |
-| --------- | ---- |
-| Python    | 3333 |
-| Node.js   | 4444 |
-| Go        | 5555 |
+| Ćwiczenie | Port | TAG	  |
+| --------- | ---- | ------------ |
+| Python    | 3333 | python--ssti |
+| Node.js   | 4444 | js-ssti	  |
+| Go        | 5555 | go-stti	  |
 
 Przydatna jest również flaga `-d`, która powoduje uruchomienie kontenera w tle i wypisanie na standardowe wyjście jego identyfikatora.
 
