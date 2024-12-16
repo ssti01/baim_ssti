@@ -4,7 +4,9 @@
 
 Stwórz folder do wykonania zadania, następnie pobierz repozytorium do tego folderu, używając następującą komendę:
 
-```https://github.com/ssti01/baim_ssti.git```
+```Git
+https://github.com/ssti01/baim_ssti.git
+```
 
 ## Docker
 
