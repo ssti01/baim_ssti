@@ -5,7 +5,7 @@
 Stwórz folder do wykonania zadania, następnie pobierz repozytorium do tego folderu, używając następującą komendę:
 
 ```Git
-https://github.com/ssti01/baim_ssti.git
+git clone https://github.com/ssti01/baim_ssti.git
 ```
 
 ## Docker
