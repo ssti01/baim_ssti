@@ -31,7 +31,7 @@ def index():
 def main():
     app.config["SECRET_KEY"] = secrets.token_bytes(8).hex()
     os.environ["FLAG"] = f"SSTI{{{secrets.token_bytes(16).hex()}}}"
-    print(f"server is running on port {PORT}")
+    print(f"server is running at http://localhost:{PORT}")
     app.run(host="0.0.0.0", port=PORT)
 
 

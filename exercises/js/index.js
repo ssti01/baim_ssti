@@ -23,5 +23,5 @@ app.get("/", (req, res) => {
 process.env.FLAG = `SSTI{${crypto.randomBytes(16).toString("hex")}}`;
 
 app.listen(PORT, () => {
-  console.log(`server is running on port ${PORT}`);
+  console.log(`server is running at http://localhost:${PORT}`);
 });

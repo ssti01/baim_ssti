@@ -65,7 +65,7 @@ func main() {
 	if err = os.Setenv("FLAG", fmt.Sprintf("SSTI{%s}\n", hex.EncodeToString(f))); err != nil {
 		panic(err)
 	}
-	fmt.Printf("server is running on port %d\n", port)
+	fmt.Printf("server is running at http://localhost:%d\n", port)
 	if err = http.ListenAndServe(fmt.Sprintf(":%d", port), &handler{string(t)}); err != nil {
 		panic(err)
 	}
