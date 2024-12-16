@@ -1,5 +1,11 @@
 # Ćwiczenia
 
+## Git
+
+Stwórz folder do wykonania zadania, następnie pobierz repozytorium do tego folderu, używając następującą komendę:
+
+`https://github.com/ssti01/baim_ssti.git`
+
 ## Docker
 
 Przed przystąpieniem do wykonania każdego ćwiczenia należy w odpowiednim podfolderze zbudować obraz na podstawie `Dockerfile` oraz uruchomić kontener. Obraz najlepiej oznaczyć dowolną etykietą za pomocą flagi `-t`. Przy uruchamianiu trzeba ustawić przekierowanie odpowiedniego portu wewnątrz kontenera na `localhost` za pomocą flagi `-p`.
