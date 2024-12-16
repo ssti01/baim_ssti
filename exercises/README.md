@@ -6,6 +6,18 @@
 baim_ssti/exercises> ls
 ```
 
+## Wymagania
+
+- Docker
+- Podstawowa znajomość Pythona
+- Podstawowa znajomość składni języków C-podobnych
+- Podstawowa znajomość poleceń powłoki w systemie Linux
+
+## Rozwiązanie ćwiczenia
+
+- Zrzut ekranu lub plik tekstowy zawierający złośliwe dane wejściowe
+- Zrzut ekranu strony wyświetlającej flagę
+
 ## Python
 
 ```bash
@@ -16,7 +28,7 @@ server is running at http://localhost:3333
 ```
 
 1. Zapoznaj się z kodem źródłowym aplikacji otwierając plik `main.py`. Znajdź wywołanie funkcji `render_template_string`. To przy jej użyciu najczęściej występuje podatność SSTI.
-2. Sprawdź, które pola formularza jest podatne.
+2. Sprawdź, które pole formularza jest podatne.
 3. Za pomocą formularza wyświetl `SECRET_KEY` znajdujący się w zmiennej `config` przechowywującej konfigurację aplikacji.
 4. Wprowadzając odpowiednie dane wejściowe wykonaj polecenie `echo $FLAG` na serwerze. Skorzystaj z [tego filmu](https://www.youtube.com/watch?v=VBifwXFQJMQ) (od 2:40).
 
