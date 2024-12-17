@@ -55,28 +55,7 @@
    - **Odpowiedzialne podejście do danych wejściowych**: Implementacja zasad takich jak filtrowanie czy stosowanie bezpiecznych bibliotek to fundament budowania odpornych na ataki aplikacji.
    - **Ulepszanie standardów**: Dbałość o dokumentację oraz dzielenie się wiedzą na temat podatności i ich zapobiegania w zespołach programistycznych może przyczynić się do tworzenia bezpieczniejszych aplikacji.
 
-## Pytania
 
-1. Który z poniższych sposobów działania aplikacji przedstawia podatność SSTI?
-   - Niezabezpieczone dane wejściowe są łączone z zapytaniem do bazy danych.
-   - Niezabezpieczone dane wejściowe są przetwarzane przez silnik szablonów jako część szablonu.
-   - Pliki załadowane przez użytkownika są zapisywane na serwerze bez ograniczeń co do ich typu lub zawartości.
-2. Które z poniższych zachowań wskazuje, że aplikacja może być podatna na SSTI?
-   - Pojawianie się wiadomości o błędach przy podaniu różnorodnych znaków specjalnych jako dane wejściowe.
-   - Pojawianie się alertu przy podaniu `<script>alert(1)</script>` jako dane wejściowe.
-   - Wysyłanie w odpowiedzi HTTP nagłówka `X-Powered-By: Express`.
-3. Czy podatność SSTI można potencjalnie wykorzystać do przeprowadzenia ataku XSS?
-   - Tak
-   - Nie
-4. W jakim środowisku występuje podatność SSTI?
-   - W przeglądarce użytkownika.
-   - Na serwerze.
-   - W bazie danych.
-   - W sieci podczas transmisji danych.
-5. Które z poniższych danych wejściowych użyłbyś do wykrycia podatności SSTI w aplikacji używającej silnika szablonów Jinja?
-   - `<%= 7 * 7 %>`
-   - `@(7 * 7)`
-   - `{{ 7 * 7 }}`
 
 ## Fragmenty kodu
 
